@@ -30,28 +30,22 @@ async function signIn(username, password) {
 
 }
 
-async function paymentSuccessful() {
-    const {data} = await supabase.auth.getUser()
-
-    if (!data.user) {
-        // User not logged in - error handling
-        return
-    }
-
-    const newValidityDate = new Date()
-    newValidityDate.setDate(newValidityDate.getDate() + 30) // + 30 days
-
-    const {error} =  await supabase
-        .from("subscriptions")
-        .upsert({
-            user_id: data.user.id,
-            valid_until: newValidityDate.toISOString()
-        })
+async function confirmPayment(cardNumber, cvv, amount) {
+    // Proxy payment function
+    const {error} = await supabase.functions.invoke("payment-gateway", {
+        body: {
+            card: {
+                number: cardNumber,
+                cvv: cvv
+            },
+            amount: amount
+        }
+    })
 
     if (!error) {
-        // Upsert success
+        // Payment successful
     } else {
-        // Upsert error
+        // Error
     }
 }
 
