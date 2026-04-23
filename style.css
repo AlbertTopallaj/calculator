@@ -1,9 +1,4 @@
 
-.key {
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-}
 * {
     box-sizing: border-box;
 }
@@ -86,4 +81,10 @@ a {
 .header nav a:hover {
     color: lightgrey;
     transform: scale(1.2);
+}
+
+.key {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
 }
