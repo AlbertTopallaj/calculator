@@ -1,3 +1,6 @@
+/**
+ * @deprecated Payment is proxied via supabase
+ */
 async function mockPay(cardNumber, cvv, amount) {
     const request = await fetch("https://calc-payments.free.beeceptor.com/payment", {
         method: "POST",
