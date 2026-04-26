@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-/* Centrerar miniräknaren på skärmen och sätter bakgrundsfärg */
+/* Centrerar miniräknaren på skärmen och sätter bakgrundsfärg på den */
 body {
   min-height: 100vh;
   margin: 0;
@@ -24,17 +24,18 @@ body {
 
 /* Själva display-rutan */
 .calculator-display {
-  width: 100%;              /* Fyller hela bredden */
-  height: 70px;             /* Höjd på displayen */
-  padding: 8px 12px;        /* Luft runt texten */
-  border-radius: 8px;       /* Rundade hörn */
-  background: #000;         /* Svart bakgrund */
-  color: #e6e6e6;           /* Grön text (retro-kalkylator-look) */
-  font-size: 2.4rem;        /* Stor text */
-  text-align: right;        /* Texten högerjusteras */
-  display: flex;            /* Gör det lätt att centrera vertikalt */
-  align-items: center;      /* Vertikal centrering */
-  justify-content: flex-end;/* Texten hålls till höger */
-  overflow: hidden;         /* Döljer text som blir för lång */
-  white-space: nowrap;      /* Förhindrar radbrytning */
+  width: 100%;
+  height: 90px;              /* Större display */
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #3a3a3a;       /* Ljusare grå bakgrund */
+  color: #e6e6e6;
+  font-size: 1.8rem;         /* Mindre text */
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+  white-space: nowrap;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.4); /* Subtil skärmeffekt */
 }
