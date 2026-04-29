@@ -22,3 +22,31 @@ function createKey(symbol, action) {
 }
 
 document.body.append(createKey('=',null));
+
+const sliderContainer = document.querySelector('.slides-container');
+const dots = document.querySelectorAll('.dot');
+let currentIndex = 0;
+
+function updateSlider() {
+    sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[currentIndex].classList.add('active');
+}
+
+document.querySelector('.arrow.left').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + dots.length) % dots.length;
+    updateSlider();
+});
+
+document.querySelector('.arrow.right').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % dots.length;
+    updateSlider();
+});
+
+dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+        currentIndex = parseInt(dot.dataset.index);
+        updateSlider();
+    });
+});
