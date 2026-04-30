@@ -14,12 +14,43 @@
         </a>
         <button class="burger">☰</button>
         <nav class="header-nav">
-            <a href="login.html">Login</a>
-            <a href="signup.html">Sign up</a>
+            <a href="#" onclick="openSignupModal()">Sign Up</a>
+            <a href="#" onclick="openLoginModal()">Login</a>
             <a href="pro.html">Go Pro</a>
         </nav>
     </header>
+
+    <div class="modal-overlay" id="loginOverlay">
+        <div class="modal">
+            <button class="btn-close" onclick="closeLoginModal()">X</button>
+            <h2>Login</h2>
+
+            <label for="username">Username</label>
+            <input type="email" id="email" placeholder="Enter your email here...">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password here...">
+
+            <button class="btn-login" onclick="handleLogin()">Login</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="signupOverlay">
+        <div class="modal">
+            <button class="btn-close" onclick="closeSignupModal()">X</button>
+            <h2>Sign Up</h2>
+
+            <label for="username">Username</label>
+            <input type="email" id="email" placeholder="Enter your email here...">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password here...">
+
+            <button class="btn-login" onclick="handleSignup()">Sign up</button>
+        </div>
+    </div>
    
 </body>
 <script src="./main.js"></script>
+<script src="./modal.js"></script>
 </html>
