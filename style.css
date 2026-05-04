@@ -26,19 +26,19 @@ body {
 /* Själva display-rutan */
 .calculator-display {
   width: 100%;
-  height: 90px;              /* Större display */
+  height: 90px;              
   padding: 10px 14px;
   border-radius: 8px;
-  background: #3a3a3a;       /* Ljusare grå bakgrund */
+  background: #3a3a3a;       
   color: #e6e6e6;
-  font-size: 1.8rem;         /* Mindre text */
+  font-size: 1.8rem;        
   text-align: right;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   overflow: hidden;
   white-space: nowrap;
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.4); /* Subtil skärmeffekt */
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.4); 
 }
 
 .burger {
@@ -184,4 +184,97 @@ a {
     font-size: 1.4rem;
     cursor: pointer;
     line-height: 1;
+}
+
+
+.calculator-slider-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+/* Själva slider-boxen */
+.calculator-slider {
+    width: 600px;
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #f4f4f4;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+
+.slides-container {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.4s ease;
+}
+
+
+.slide {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 22px;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.arrow:hover {
+    background: rgba(0,0,0,0.6);
+}
+
+.arrow.left {
+    left: 10px;
+}
+
+.arrow.right {
+    right: 10px;
+}
+
+.dots {
+    position: absolute;
+    bottom: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.dot.active {
+    background: #333;
 }
