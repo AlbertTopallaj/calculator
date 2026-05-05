@@ -1,26 +1,66 @@
 // Hämtar display-elementet från HTML
-const displayEl = document.getElementById('display');
+const burger = document.querySelector('.burger');
+const nav = document.querySelector('.header-nav');
 
 // Uppdaterar texten i displayen
 function setDisplayValue(value) {
-  displayEl.textContent = value;
+  document.getElementById('display').textContent = value;
 }
-const burger = document.querySelector('.burger');
-const nav = document.querySelector('.header-nav');
 
 burger.addEventListener('click', () => {
     nav.classList.toggle('open');
 });
 
 function createKey(symbol, action) {
-  const key = document.createElement('button');
+  let key = document.createElement('button');
   key.append(document.createTextNode(symbol));
-  key.onclick = action;
-  key.className = 'key';
+  key.addEventListener('click', action)
+  key.classList.add('key');
   return key;
 }
 
-document.body.append(createKey('=',null));
+function createDisplay() {
+  let display = document.createElement('div');
+  display.id = 'display'; 
+  display.classList.add('calculator-display');
+  display.appendChild(document.createTextNode('0'));
+  return display;
+}
+
+function createCalculator(keypad) {
+  let calculator = document.createElement('div');
+  calculator.classList.add('calculator');
+
+  calculator.appendChild(createDisplay());
+
+  calculator.appendChild(keypad);
+  return calculator;
+}
+
+function freeCalculatorKeypad() {
+  let keypad = document.createElement('div');
+  keypad.classList.add('keypad');
+  keypad.appendChild(createKey('1', function () {  }));
+  keypad.appendChild(createKey('2', function () {  }));
+  keypad.appendChild(createKey('3', function () {  }));
+  keypad.appendChild(createKey('DEL', function () {  }));
+  keypad.appendChild(createKey('4', function () {  }));
+  keypad.appendChild(createKey('5', function () {  }));
+  keypad.appendChild(createKey('6', function () {  }));
+  keypad.appendChild(createKey('+', function () {  }));
+  keypad.appendChild(createKey('7', function () {  }));
+  keypad.appendChild(createKey('8', function () {  }));
+  keypad.appendChild(createKey('9', function () {  }));
+  keypad.appendChild(createKey('-', function () {  }));
+  keypad.appendChild(createKey('AC', function () {  }));
+  keypad.appendChild(createKey('0', function () {  }));
+  keypad.appendChild(createKey('C', function () {  }));
+  keypad.appendChild(createKey('=', function () {  }));
+  return keypad;
+}
+
+
+document.getElementById('calculatorSection').appendChild(createCalculator(freeCalculatorKeypad()));
 
 const sliderContainer = document.querySelector('.slides-container');
 const dots = document.querySelectorAll('.dot');
