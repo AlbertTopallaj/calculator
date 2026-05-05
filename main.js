@@ -1,9 +1,11 @@
-const sliderContainer = document.querySelector('.slides-container');
-const dots = document.querySelectorAll('.dot');
-let currentIndex = 0;
+// Hämtar display-elementet från HTML
 const burger = document.querySelector('.burger');
 const nav = document.querySelector('.header-nav');
-const displayEl = document.getElementById('display');
+
+// Uppdaterar texten i displayen
+function setDisplayValue(value) {
+  document.getElementById('display').textContent = value;
+}
 
 burger.addEventListener('click', () => {
     nav.classList.toggle('open');
@@ -94,29 +96,32 @@ function freeCalculatorKeypad() {
 }
 
 
-document.getElementById('calc-slide-1').appendChild(createCalculator(freeCalculatorKeypad()));
+document.getElementById('calculatorSection').appendChild(createCalculator(freeCalculatorKeypad()));
 
+const sliderContainer = document.querySelector('.slides-container');
+const dots = document.querySelectorAll('.dot');
+let currentIndex = 0;
 
 function updateSlider() {
-  sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+    sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-  dots.forEach(dot => dot.classList.remove('active'));
-  dots[currentIndex].classList.add('active');
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[currentIndex].classList.add('active');
 }
 
 document.querySelector('.arrow.left').addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + dots.length) % dots.length;
-  updateSlider();
+    currentIndex = (currentIndex - 1 + dots.length) % dots.length;
+    updateSlider();
 });
 
 document.querySelector('.arrow.right').addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % dots.length;
-  updateSlider();
+    currentIndex = (currentIndex + 1) % dots.length;
+    updateSlider();
 });
 
 dots.forEach(dot => {
-  dot.addEventListener('click', () => {
-    currentIndex = parseInt(dot.dataset.index);
-    updateSlider();
-  });
+    dot.addEventListener('click', () => {
+        currentIndex = parseInt(dot.dataset.index);
+        updateSlider();
+    });
 });
