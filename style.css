@@ -278,3 +278,13 @@ a {
 .dot.active {
     background: #333;
 }
+
+.signup-error {
+    color:red;
+    font-size: 0.85rem;
+}
+
+.login-error {
+    color:red;
+    font-size: 0.85rem;
+}

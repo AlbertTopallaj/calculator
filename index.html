@@ -25,12 +25,14 @@
             <h2>Login</h2>
 
             <label for="username">Username</label>
-            <input type="email" id="email" placeholder="Enter your email here...">
+            <input type="email" id="login-username" placeholder="Enter your email here...">
 
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password here...">
+            <input type="password" id="login-password" placeholder="Enter your password here...">
 
             <button class="btn-login" onclick="handleLogin()">Login</button>
+            <p class="login-error" id="login-error"></p>
+            
         </div>
     </div>
 
@@ -40,12 +42,13 @@
             <h2>Sign Up</h2>
 
             <label for="username">Username</label>
-            <input type="email" id="email" placeholder="Enter your email here...">
+            <input type="email" id="signup-username" placeholder="Enter your username here...">
 
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password here...">
+            <input type="password" id="signup-password" placeholder="Enter your password here...">
 
             <button class="btn-login" onclick="handleSignup()">Sign up</button>
+            <p class="signup-error" id="signup-error"></p>
         </div>
     </div>
    
@@ -86,8 +89,8 @@
 </section>
 
 
-
-<script src="./main.js"></script>
 <script src="./modal.js"></script>
+<script src="./state.js"></script>
+<script src="./main.js"></script>
 </body>
 </html>
