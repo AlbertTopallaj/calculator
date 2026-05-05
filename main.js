@@ -11,6 +11,42 @@ burger.addEventListener('click', () => {
     nav.classList.toggle('open');
 });
 
+// Uppdaterar texten i displayen
+function setDisplayValue(value) {
+  displayEl.textContent = value;
+}
+
+//Toast
+function showToast(message) {
+  const toast = document.createElement("div")
+  toast.className = "toast"
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  let offset = parseInt(getComputedStyle(toast).getPropertyValue("bottom"))
+  document.querySelectorAll(".toast").forEach(element => {
+    offset += element.offsetHeight + 10 // space between
+  })
+
+  toast.style.bottom = `${offset}px`;
+
+  document.body.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    toast.style.opacity = "1";
+  });
+
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    setTimeout(() => toast.remove(), 500);
+  }, 3000);
+
+}
+
+burger.addEventListener('click', () => {
+  nav.classList.toggle('open');
+});
+
 function createKey(symbol, action) {
   let key = document.createElement('button');
   key.append(document.createTextNode(symbol));
@@ -21,7 +57,7 @@ function createKey(symbol, action) {
 
 function createDisplay() {
   let display = document.createElement('div');
-  display.id = 'display'; 
+  display.id = 'display';
   display.classList.add('calculator-display');
   display.appendChild(document.createTextNode('0'));
   return display;
