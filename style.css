@@ -1,3 +1,34 @@
+body {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+input {
+    max-width: 200px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 18px;
+}
 
 * {
     box-sizing: border-box;
@@ -23,12 +54,12 @@ body {
     .header {
         flex-wrap: wrap;
     }
-    
+
     .burger {
         display: block;
     }
-    
-    .header nav { 
+
+    .header nav {
         margin-top: 2rem;
         display: none !important;
         flex-direction: column;
@@ -40,7 +71,7 @@ body {
     .header nav.open {
         display: flex !important;
     }
-    
+
 }
 
 a {
@@ -84,7 +115,247 @@ a {
 }
 
 .key {
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+
 }
+
+/* Yttre ram omkring miniräknaren */
+.calculator {
+    width: 260px;
+    padding: 16px;
+    border-radius: 12px;
+    background: #2f2f2f;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Själva display-rutan */
+.calculator-display {
+    width: 100%;
+    height: 90px; /* Större display */
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: #3a3a3a; /* Ljusare grå bakgrund */
+    color: #e6e6e6;
+    font-size: 1.8rem; /* Mindre text */
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+    white-space: nowrap;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4); /* Subtil skärmeffekt */
+}
+
+/*Toast*/
+.toast {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 12px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    opacity: 0;
+    transition: opacity 0.5s, bottom 0.5s;
+}
+
+.calculator-slider-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+/* Själva slider-boxen */
+.calculator-slider {
+    width: 600px;
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.slides-container {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.4s ease;
+}
+
+
+.slide {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 22px;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.arrow:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.arrow.left {
+    left: 10px;
+}
+
+.arrow.right {
+    right: 10px;
+}
+
+.dots {
+    position: absolute;
+    bottom: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.dot.active {
+    background: #333;
+}
+
+.key {
+    cursor: pointer;
+    font-size: 3cqmin;
+    aspect-ratio: 1;
+    padding: 0;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.calculatorSection {
+    display: flex;
+    justify-content: center;
+    margin: 2vh;
+    max-height: 104vh;
+}
+
+.calculator .keypad {
+    margin-top: 2vh;
+    padding-top: 2vh;
+    display: grid;
+    grid-template-columns: minmax(0, 18cqmin) minmax(0, 18cqmin) minmax(0, 18cqmin) minmax(0, 18cqmin);
+    grid-gap: 1vh;
+    border-top-color: gray;
+    border-top-style: solid;
+}
+
+a {
+    text-decoration-line: none;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.modal-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 320px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal h2 {
+    margin: 0 0 1.5rem;
+    font-size: 1.4rem;
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.modal input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 0.6rem;
+    background: #3b5bdb;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn.login:hover {
+    background: #2f4ac7;
+}
+
+.btn-close {
+    float: right;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
