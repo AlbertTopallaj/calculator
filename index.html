@@ -25,12 +25,14 @@
             <h2>Login</h2>
 
             <label for="username">Username</label>
-            <input type="email" id="email" placeholder="Enter your email here...">
+            <input type="email" id="login-username" placeholder="Enter your email here...">
 
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password here...">
+            <input type="password" id="login-password" placeholder="Enter your password here...">
 
             <button class="btn-login" onclick="handleLogin()">Login</button>
+            <p class="login-error" id="login-error"></p>
+            
         </div>
     </div>
 
@@ -40,19 +42,50 @@
             <h2>Sign Up</h2>
 
             <label for="username">Username</label>
-            <input type="email" id="email" placeholder="Enter your email here...">
+            <input type="email" id="signup-username" placeholder="Enter your username here...">
 
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password here...">
+            <input type="password" id="signup-password" placeholder="Enter your password here...">
 
             <button class="btn-login" onclick="handleSignup()">Sign up</button>
+            <p class="signup-error" id="signup-error"></p>
         </div>
     </div>
    
     <section id="calculatorSection" class="calculatorSection">
     </section>
 
-</body>
-<script src="./main.js"></script>
+  <section class="calculator-slider-section">
+    <div class="calculator-slider">
+
+        <div class="slides-container">
+
+            <div class="slide" id="calc-slide-1">
+                <h2 class="slide-title">Miniräknare 1</h2>
+                <!-- Här lägger du in miniräknare 1 senare -->
+            </div>
+
+            <div class="slide" id="calc-slide-2">
+                <h2 class="slide-title">Miniräknare 2</h2>
+                <!-- Här lägger du in miniräknare 2 senare -->
+            </div>
+
+        </div>
+
+        <button class="arrow left">&#10094;</button>
+        <button class="arrow right">&#10095;</button>
+
+        <div class="dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+        </div>
+
+    </div>
+</section>
+
+
 <script src="./modal.js"></script>
+<script src="./state.js"></script>
+<script src="./main.js"></script>
+</body>
 </html>

@@ -1,5 +1,6 @@
-* {
-  box-sizing: border-box;
+*, *::before, *::after {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    box-sizing: border-box;
 }
 
 body {
@@ -47,12 +48,12 @@ body {
     .header {
         flex-wrap: wrap;
     }
-    
+
     .burger {
         display: block;
     }
-    
-    .header-nav { 
+
+    .header-nav {
         margin-top: 2rem;
         display: none !important;
         flex-direction: column;
@@ -64,7 +65,7 @@ body {
     .header-nav.open {
         display: flex !important;
     }
-    
+
 }
 
 a {
@@ -147,7 +148,8 @@ a {
 }
 
 .modal {
-    background: #fff;
+    background: #0f172a;
+    color: #e2e8f0;
     padding: 2rem;
     border-radius: 8px;
     width: 320px;
@@ -155,45 +157,162 @@ a {
 }
 
 .modal h2 {
-    margin: 0 0 1.5rem; 
+    margin: 0 0 1.5rem;
     font-size: 1.4rem;
 }
 
 .modal label {
+    color: #94a3b8;
     display: block;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
     font-size: 0.9rem;
 }
 
 .modal input {
+    background: #1e293b;
+    color: #e2e8f0;
     width: 100%;
     padding: 0.6rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #334155;
+    border-radius: 6px;
     font-size: 1rem;
     margin-bottom: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+
+}
+
+
+
+.modal input:focus {
+    outline: none;
+    border-color: #3b5bdb;
 }
 
 .btn-login {
     width: 100%;
     padding: 0.6rem;
-    background: #3b5bdb;
-    color: #fff;
+    background: #38bdf8;
+    color: #0f172a;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
 }
 
-.btn.login:hover {
-    background: #2f4ac7;
+.btn-login:hover {
+    background: #7dd3fc;
 }
 
 .btn-close {
+    color: #94a3b8;
     float: right;
     background: none;
     border: none;
     font-size: 1.4rem;
     cursor: pointer;
     line-height: 1;
+}
+
+
+.calculator-slider-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+/* Själva slider-boxen */
+.calculator-slider {
+    width: 600px;
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #f4f4f4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.slides-container {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.4s ease;
+}
+
+
+.slide {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.slide-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 22px;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.arrow:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.arrow.left {
+    left: 10px;
+}
+
+.arrow.right {
+    right: 10px;
+}
+
+.dots {
+    position: absolute;
+    bottom: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.dot.active {
+    background: #333;
+}
+
+.signup-error {
+    color: red;
+    font-size: 0.85rem;
+}
+
+.login-error {
+    color: red;
+    font-size: 0.85rem;
 }
