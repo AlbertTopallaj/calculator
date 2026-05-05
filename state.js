@@ -11,17 +11,17 @@ async function hashPassword(password) {
 
 
 async function handleLogin() {
-    const email = document.getElementById('login-username').value;
+    const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
     const errorEl = document.getElementById('login-error');
 
-    if (!email || !password) {
+    if (!username || !password) {
         errorEl.textContent = 'Something went wrong: Wrong user credentials'
         return;
 
     }
 
-    const stored = localStorage.getItem(email);
+    const stored = localStorage.getItem(username);
     const hashed = await hashPassword(password);
 
 
@@ -36,16 +36,16 @@ async function handleLogin() {
 
 
 
-    appState.user = email;
+    appState.user = username;
     closeLoginModal();
     renderView();
 }
 
 async function handleSignup() {
-    const email = document.getElementById('signup-username').value;
+    const username = document.getElementById('signup-username').value;
     const password = document.getElementById('signup-password').value;
     const errorEl = document.getElementById('signup-error');
-    if (!email) {
+    if (!username) {
         errorEl.textContent = 'Something went wrong: Username is missing'
         return;
     }
@@ -55,17 +55,17 @@ async function handleSignup() {
         return;
     }
 
-    if (localStorage.getItem(email)) {
+    if (localStorage.getItem(username)) {
         errorEl.textContent = 'Something went wrong: Account already exists';
         return;
     }
 
     const hashed = await hashPassword(password);
-    localStorage.setItem(email, hashed);
+    localStorage.setItem(username, hashed);
 
 
 
-    appState.user = email;
+    appState.user = username;
     closeSignupModal();
     renderView();
 }
