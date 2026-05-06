@@ -35,18 +35,67 @@ function deleteFromDisplayValue() {
 function calculate() {
   let display = document.getElementById('display');
   let value = display.textContent;
-  for (let i = 1; i < value.length-1; i++) {
+
+  value = calculateHelper(value);
+
+  display.textContent = eval(value);
+}
+
+function calculateSymbolHelper(value) {
+  for (let i = 0; i < value.length-1; i++) {
     let char = value.at(i);
-    if (char == '(') {
-      value = value.slice(0, i) + '*' + value.slice(i);
-      i++;
-    }
-    if (char == ')') {
-      value = value.slice(0, i+1) + '*' + value.slice(i+1);
-      i += 2;
+    switch (char) {
+      case '(':
+        if (i == 0) { break; }
+        if(!isNaN(value.at(--i))) {
+          value = value.slice(0, i) + '*' + value.slice(i);
+          i++;
+        }
+        break;
+      case ')':
+        if (!isNaN(value.at(++i))) {
+          value = value.slice(0, i) + '*' + value.slice(i);
+          i++;
+        }
+        break;
+      case '^':
+        value = value.slice(0, i) + '**' + value.slice(++i);
+        i++;
+        break;
+      case '√':
+        let nRoot = 2;
+        let rootIndex = i;
+        if (i > 0 && !isNaN(value.at(i-1))) {
+          nRoot = '';
+          i--;
+          while (i >= 0 && !isNaN(value.at(i))) {
+            nRoot = value.at(i--) + nRoot;
+          }
+          value = value.slice(0, ++i) + value.slice(rootIndex);
+        }
+        rootIndex = i++;
+        if (value.at(i++) == '(') {
+          let parAmount = 1;
+          while (parAmount > 0 && value.length > i) {
+            switch (value.at(i)) {
+              case '(':
+                parAmount++;
+                break;
+              case ')':
+                parAmount--;
+                break;
+            }
+            i++;
+          }
+        } else {
+          while (!isNaN(value.at(i))) {i++}
+        }
+        value = value.slice(0, rootIndex) + 'Math.pow(' + calculateHelper(value.slice(rootIndex+1, i)) + ', 1/' + nRoot + ')' + value.slice(i);
+        i += 13;
+        break;
     }
   }
-  display.textContent = eval(value);
+  return value;
 }
 
 const burger = document.querySelector('.burger');
