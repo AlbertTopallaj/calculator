@@ -125,3 +125,88 @@ dots.forEach(dot => {
         updateSlider();
     });
 });
+
+const display = document.getElementById("display-2");
+const buttons = document.querySelectorAll(".btn");
+
+let currentInput = "0";
+
+function updateDisplay() {
+  display.textContent = currentInput || "0";
+}
+
+function handleValue(value) {
+  if (currentInput === "0" && value !== ".") {
+    currentInput = value;
+  } else {
+    currentInput += value;
+  }
+  updateDisplay();
+}
+
+function handleClear() {
+  currentInput = "0";
+  updateDisplay();
+}
+
+function handleDelete() {
+  if (currentInput.length <= 1) {
+    currentInput = "0";
+  } else {
+    currentInput = currentInput.slice(0, -1);
+  }
+  updateDisplay();
+}
+
+function handleEquals() {
+  try {
+    const result = Function('"use strict"; return (' + currentInput + ")")();
+    currentInput = String(result);
+  } catch (e) {
+    currentInput = "Fel";
+  }
+  updateDisplay();
+}
+
+function flashButton(btn) {
+  btn.classList.add("pressed");
+  setTimeout(() => btn.classList.remove("pressed"), 120);
+}
+
+buttons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    flashButton(btn);
+
+    const value = btn.getAttribute("data-value");
+    const action = btn.getAttribute("data-action");
+
+    if (action === "clear") {
+      handleClear();
+    } else if (action === "delete") {
+      handleDelete();
+    } else if (action === "equals") {
+      handleEquals();
+    } else if (value) {
+      handleValue(value);
+    }
+    else if (action === "percent") {
+      handlePercent();
+    }
+  });
+
+  function handlePercent() {
+  try {
+    const match = currentInput.match(/(\d+\.?\d*)$/);
+    if (!match) return;
+
+    const number = parseFloat(match[1]);
+    const percentValue = number / 100;
+
+    currentInput = currentInput.replace(/(\d+\.?\d*)$/, percentValue);
+    updateDisplay();
+  } catch {
+    currentInput = "Fel";
+    updateDisplay();
+  }
+}
+});
