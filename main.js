@@ -36,7 +36,7 @@ function calculate() {
   let display = document.getElementById('display');
   let value = display.textContent;
 
-  value = calculateHelper(value);
+  value = calculateSymbolHelper(value);
 
   display.textContent = eval(value);
 }
