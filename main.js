@@ -131,7 +131,11 @@ function updateSlider() {
         const section = document.createElement("section")
         section.id = `dynamicCalculatorSection${currentIndex}`
         section.className = "calculatorSection"
+        section.dataset.state = "empty"
         currentVisibleSlide.appendChild(section)
+        getPayload(currentIndex)
+    } else if (currentVisibleSlide.firstElementChild.dataset.state === "empty") {
+        currentVisibleSlide.firstElementChild.innerHTML = ""
         getPayload(currentIndex)
     }
 }

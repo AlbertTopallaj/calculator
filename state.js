@@ -152,6 +152,7 @@ async function sessionCheck() {
 async function getPayload(index) {
     if (appState.subscription.isPremium) {
         await fetchPayload("orangeMan", index)
+        document.getElementById(`dynamicCalculatorSection${index}`).dataset.state = "loaded"
     } else {
         const section = document.getElementById(`dynamicCalculatorSection${index}`)
         const paywall = document.createElement("h1")
@@ -169,6 +170,7 @@ window.handleSignup = handleSignup
 window.handleLogout = handleLogout
 window.handlePayment = handlePayment
 window.getPayload = getPayload
+window.appState = appState
 
 sessionCheck()
 

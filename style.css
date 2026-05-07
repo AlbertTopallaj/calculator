@@ -296,3 +296,15 @@ a {
     color: red;
     font-size: 0.85rem;
 }
+
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    opacity: 0;
+    background: #3a3a3a;
+    color: azure;
+    padding: 12px 18px;
+    border-radius: 12px;
+    transition: opacity 0.5s;
+}

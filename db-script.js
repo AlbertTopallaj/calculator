@@ -173,7 +173,7 @@ export async function fetchPayload(name, index) {
         })
 
     if (error) {
-        showToast(`Fetch failed: ${error.message}`)
+        showToast("Fetch failed, user not authenticated")
         return
     }
 
