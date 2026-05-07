@@ -1,4 +1,4 @@
-import {checkUserSession, logout, signIn, signUp, confirmPayment} from "./db-script.js"
+import {checkUserSession, logout, signIn, signUp, confirmPayment, fetchPayload} from "./db-script.js"
 
 let appState = {
     user: null,
@@ -149,10 +149,27 @@ async function sessionCheck() {
     renderView()
 }
 
+async function getPayload(index) {
+    if (appState.subscription.isPremium) {
+        await fetchPayload("orangeMan", index)
+        document.getElementById(`dynamicCalculatorSection${index}`).dataset.state = "loaded"
+    } else {
+        const section = document.getElementById(`dynamicCalculatorSection${index}`)
+        const paywall = document.createElement("h1")
+        paywall.textContent = "Premium content placeholder. \nSign up and Go Pro\n.... or Go Home"
+        paywall.style.whiteSpace = "pre-line";
+        paywall.style.lineHeight = "4.0";
+        paywall.style.textAlign = "center";
+        paywall.style.color = "azure"
+        section.appendChild(paywall)
+    }
+}
+
 window.handleLogin = handleLogin
 window.handleSignup = handleSignup
 window.handleLogout = handleLogout
 window.handlePayment = handlePayment
+window.getPayload = getPayload
 window.appState = appState
 
 sessionCheck()
