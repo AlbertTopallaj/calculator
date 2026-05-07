@@ -35,7 +35,6 @@ function deleteFromDisplayValue() {
 function calculate() {
   let display = document.getElementById('display');
   let value = display.textContent;
-  value = '√81'
 
   value = calculateSymbolHelper(value);
 
