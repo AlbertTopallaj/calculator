@@ -1,6 +1,11 @@
+import {checkUserSession, logout, signIn, signUp, confirmPayment, fetchPayload} from "./db-script.js"
+
 let appState = {
     user: null,
-    history: []
+    subscription: {
+        isPremium: false,
+        daysRemaining: null
+    }
 };
 
 async function hashPassword(password) {
@@ -11,40 +16,34 @@ async function hashPassword(password) {
 
 
 async function handleLogin() {
-    const username = document.getElementById('login-username').value;
-    const password = document.getElementById('login-password').value;
     const errorEl = document.getElementById('login-error');
+    const username = document.getElementById('login-username').value;
+    const password = await hashPassword(document.getElementById('login-password').value);
 
-    if (!username || !password) {
-        errorEl.textContent = 'Something went wrong: Wrong user credentials'
-        return;
+    const result = await signIn(username, password)
 
-    }
-
-    const stored = localStorage.getItem(username);
-    const hashed = await hashPassword(password);
-
-
-
-    if (!stored || stored !== hashed) {
+    if (!result.success) {
         errorEl.textContent = 'Something went wrong: Wrong user credentials'
         return;
     }
 
+    const session = await checkUserSession()
 
+    if (!session.success) return
 
-
-
-
-    appState.user = username;
+    appState.user = session.data.user.email;
+    appState.subscription.isPremium = session.isPremium
+    appState.subscription.daysRemaining = session.daysLeft
     closeLoginModal();
     renderView();
 }
 
 async function handleSignup() {
     const username = document.getElementById('signup-username').value;
-    const password = document.getElementById('signup-password').value;
+    const password = await hashPassword(document.getElementById('signup-password').value);
     const errorEl = document.getElementById('signup-error');
+
+
     if (!username) {
         errorEl.textContent = 'Something went wrong: Username is missing'
         return;
@@ -55,24 +54,45 @@ async function handleSignup() {
         return;
     }
 
-    if (localStorage.getItem(username)) {
-        errorEl.textContent = 'Something went wrong: Account already exists';
+    const result = await signUp(username, password)
+
+    if (!result.success) {
+        errorEl.textContent = 'Something went wrong: Wrong user credentials'
         return;
     }
 
-    const hashed = await hashPassword(password);
-    localStorage.setItem(username, hashed);
+    const session = await checkUserSession()
 
+    if (!session.success) return
 
-
-    appState.user = username;
+    appState.user = session.data.user.email;
+    appState.subscription.isPremium = session.isPremium
+    appState.subscription.daysRemaining = session.daysLeft
     closeSignupModal();
     renderView();
 }
 
-function handleLogout() {
+async function handleLogout() {
+    const result = await logout()
+    if (!result.success) return
     appState.user = null;
+    appState.subscription.isPremium = false
+    appState.subscription.daysRemaining = null
     renderView();
+}
+
+async function handlePayment() {
+    const cardNumber = document.getElementById('card-number').value;
+    const cvv = document.getElementById('card-cvv').value;
+
+    const result = await confirmPayment(cardNumber, cvv, 499)
+
+    if (result.success) {
+        sessionCheck()
+    } else {
+        // error message
+    }
+    closeGoProModal()
 }
 
 function renderView() {
@@ -89,29 +109,68 @@ function renderView() {
         login.href = '#';
         login.onclick = openLoginModal;
 
-        const pro = document.createElement('a');
-        pro.textContent = 'Go Pro';
-        pro.href = 'pro.html';
-
-        nav.replaceChildren(signup, login, pro);
+        nav.replaceChildren(signup, login);
 
     } else {
         const welcome = document.createElement('a');
         welcome.textContent = `Välkommen, ${appState.user}`;
         welcome.style.color = 'white';
 
-        const pro = document.createElement('a');
-        pro.textContent = 'Go Pro';
-        pro.href = 'pro.html';
-
         const logout = document.createElement('a');
         logout.textContent = 'Logga ut';
         logout.href = '#';
         logout.onclick = handleLogout;
 
-        nav.replaceChildren(welcome, pro, logout);
+        nav.replaceChildren(welcome, logout);
+
+        if (!appState.subscription.isPremium) {
+            const pro = document.createElement('a');
+            pro.textContent = 'Go Pro';
+            pro.onclick = openGoProModal
+            nav.appendChild(pro)
+        } else {
+            const timeLeft = document.createElement('a')
+            timeLeft.textContent = `${appState.subscription.daysRemaining} days remaining`
+            nav.appendChild(timeLeft)
+        }
 
     }
 }
 
-renderView();
+async function sessionCheck() {
+    const session = await checkUserSession()
+
+    if (!session.success) return
+
+    appState.user = session.data.user.email
+    appState.subscription.isPremium = session.isPremium
+    appState.subscription.daysRemaining = session.daysLeft
+
+    renderView()
+}
+
+async function getPayload(index) {
+    if (appState.subscription.isPremium) {
+        await fetchPayload("orangeMan", index)
+        document.getElementById(`dynamicCalculatorSection${index}`).dataset.state = "loaded"
+    } else {
+        const section = document.getElementById(`dynamicCalculatorSection${index}`)
+        const paywall = document.createElement("h1")
+        paywall.textContent = "Premium content placeholder. \nSign up and Go Pro\n.... or Go Home"
+        paywall.style.whiteSpace = "pre-line";
+        paywall.style.lineHeight = "4.0";
+        paywall.style.textAlign = "center";
+        paywall.style.color = "azure"
+        section.appendChild(paywall)
+    }
+}
+
+window.handleLogin = handleLogin
+window.handleSignup = handleSignup
+window.handleLogout = handleLogout
+window.handlePayment = handlePayment
+window.getPayload = getPayload
+window.appState = appState
+
+sessionCheck()
+
