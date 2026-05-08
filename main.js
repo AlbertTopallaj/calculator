@@ -8,7 +8,7 @@ burger.addEventListener('click', () => {
 
 // Uppdaterar texten i displayen
 function setDisplayValue(value) {
-  document.getElementById('display'); = value;
+  document.getElementById('display') = value;
 }
 
 //Toast
@@ -192,6 +192,8 @@ function freeCalculatorKeypad() {
     }));
     return keypad;
 }
+
+document.getElementById('calculatorSection').appendChild(createCalculator(freeCalculatorKeypad()));
 
 const sliderContainer = document.querySelector('.slides-container');
 const dots = document.querySelectorAll('.dot');
