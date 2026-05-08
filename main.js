@@ -8,7 +8,7 @@ burger.addEventListener('click', () => {
 
 // Uppdaterar texten i displayen
 function setDisplayValue(value) {
-    displayEl.textContent = value;
+  document.getElementById('display') = value;
 }
 
 //Toast
@@ -38,9 +38,96 @@ function showToast(message) {
 
 }
 
-burger.addEventListener('click', () => {
-    nav.classList.toggle('open');
-});
+function addToDisplayValue(value) {
+  let display = document.getElementById('display');
+  let displayValue = display.textContent;
+  if (!isNaN(value)) {
+    if (displayValue == 0) {
+      display.textContent = '';
+    }
+  } else {
+    if (isNaN(displayValue.at(displayValue.length-1))) {
+      display.textContent = displayValue.slice(0, -1);
+    }
+  }
+  display.textContent += value;
+}
+
+function deleteFromDisplayValue() {
+  let display = document.getElementById('display');
+  let value = display.textContent;
+  if (value.length < 2) {
+    display.textContent = 0;
+    return;
+  }
+  display.textContent = value.slice(0, -1);
+}
+
+function calculate() {
+  let display = document.getElementById('display');
+  let value = display.textContent;
+
+  value = calculateSymbolHelper(value);
+
+  display.textContent = eval(value);
+}
+
+function calculateSymbolHelper(value) {
+  for (let i = 0; i < value.length-1; i++) {
+    let char = value.at(i);
+    switch (char) {
+      case '(':
+        if (i == 0) { break; }
+        if(!isNaN(value.at(--i))) {
+          value = value.slice(0, i) + '*' + value.slice(i);
+          i++;
+        }
+        break;
+      case ')':
+        if (!isNaN(value.at(++i))) {
+          value = value.slice(0, i) + '*' + value.slice(i);
+          i++;
+        }
+        break;
+      case '^':
+        value = value.slice(0, i) + '**' + value.slice(++i);
+        i++;
+        break;
+      case '√':
+        let nRoot = 2;
+        let rootIndex = i;
+        if (i > 0 && !isNaN(value.at(i-1))) {
+          nRoot = '';
+          i--;
+          while (i >= 0 && !isNaN(value.at(i))) {
+            nRoot = value.at(i--) + nRoot;
+          }
+          value = value.slice(0, ++i) + value.slice(rootIndex);
+        }
+        rootIndex = i++;
+        if (value.at(i++) == '(') {
+          let parAmount = 1;
+          while (parAmount > 0 && value.length > i) {
+            switch (value.at(i)) {
+              case '(':
+                parAmount++;
+                break;
+              case ')':
+                parAmount--;
+                break;
+            }
+            i++;
+          }
+        } else {
+          while (!isNaN(value.at(i))) {i++}
+        }
+        value = value.slice(0, rootIndex) + 'Math.pow(' + calculateSymbolHelper(value.slice(rootIndex+1, i)) + ', 1/' + nRoot + ')' + value.slice(i);
+        i += 13;
+        break;
+    }
+  }
+  return value;
+}
 
 function createKey(symbol, action) {
     let key = document.createElement('button');
@@ -105,7 +192,6 @@ function freeCalculatorKeypad() {
     }));
     return keypad;
 }
-
 
 document.getElementById('calculatorSection').appendChild(createCalculator(freeCalculatorKeypad()));
 
