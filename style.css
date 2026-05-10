@@ -365,6 +365,7 @@ body.light .title {
 
 body.light input {
     background-color: white;
+    color: black;
 }
 
 body.light .btn-login {
@@ -390,6 +391,10 @@ body.light .calculator-display {
 }
 
 body.light label {
+    color: black;
+}
+
+body.light #welcome {
     color: black;
 }
 

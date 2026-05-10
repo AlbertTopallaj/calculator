@@ -97,6 +97,10 @@ async function handlePayment() {
 
 function renderView() {
     const nav = document.querySelector('.header-nav');
+    
+    const emailSettings = document.getElementById('emailSettings');
+    const currentPlan = document.getElementById('currentPlan');
+    
 
     if (!appState.user) {
         const signup = document.createElement('a');
@@ -111,18 +115,27 @@ function renderView() {
 
         nav.replaceChildren(signup, login);
 
+        emailSettings.textContent = 'notloggedin@notloggedin.com'
+        currentPlan.textContent = 'Free';
+
     } else {
         const welcome = document.createElement('a');
         welcome.textContent = `Välkommen, ${appState.user}`;
-        welcome.style.color = 'white';
+
+        const settings = document.createElement('a');
+        settings.textContent = 'Settings'
+        settings.href = '#';
+        settings.onclick = openSettingsModal;
 
         const logout = document.createElement('a');
-        logout.textContent = 'Logga ut';
+        logout.textContent = 'Log out';
         logout.href = '#';
         logout.onclick = handleLogout;
 
-        nav.replaceChildren(welcome, logout);
+        nav.replaceChildren(welcome, logout, settings);
 
+        emailSettings.textContent = appState.user;
+        currentPlan.textContent = appState.subscription.isPremium ? 'Pro' : 'Free';
         if (!appState.subscription.isPremium) {
             const pro = document.createElement('a');
             pro.textContent = 'Go Pro';
@@ -130,12 +143,14 @@ function renderView() {
             nav.appendChild(pro)
         } else {
             const timeLeft = document.createElement('a')
-            timeLeft.textContent = `${appState.subscription.daysRemaining} days remaining`
+            timeLeft.textContent = `Your subscription has ${appState.subscription.daysRemaining} days remaining`
             nav.appendChild(timeLeft)
         }
 
     }
 }
+
+
 
 async function sessionCheck() {
     const session = await checkUserSession()
