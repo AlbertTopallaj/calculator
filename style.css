@@ -303,6 +303,7 @@ a {
     border-radius: 12px;
     transition: opacity 0.5s;
 }
+
 .toggle {
     position: relative;
     width: 52px;
@@ -336,16 +337,55 @@ a {
     transition: .2s;
 }
 
-.toggle input:checked + .toggle-thumb {
+.toggle input:checked+.toggle-thumb {
     background: #3b82f6;
 }
 
-.toggle input:checked + .toggle-thumb::after {
+.toggle input:checked+.toggle-thumb::after {
     transform: translateX(24px);
 }
 
 body.light {
     background: white;
+    color: black;
+}
+
+body.light .modal {
+    background: white;
+    color: black;
+}
+body.light .header {
+    background-color: lightgrey;
+}
+
+body.light .header a,
+body.light .title {
+    color: black;
+}
+
+body.light input {
+    background-color: white;
+}
+
+body.light .btn-login {
+    background-color: lightgrey;
+
+}
+
+body.light .btn-signup {
+    background-color: lightgrey;
+}
+
+body.light .burger {
+    color: black
+}
+
+body.light .calculator {
+    background-color: white;
+}
+
+body.light .calculator-display {
+    background-color: white;
     color: black;
 }
 
@@ -368,9 +408,4 @@ body.light {
 .settings-value {
     color: #64748b;
     font-size: 0.85rem;
-}
-
-.fa-gear {
-    font-size: 1.5rem;
-    color: black;
 }

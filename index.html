@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 
 <body>
@@ -79,7 +79,7 @@
     <div class="modal-overlay" id="settingsOverlay">
         <div class="modal">
             <button class="btn-close" onclick="closeSettingsModal()">X</button>
-             <span class="material-icons">settings</span>
+            <span class="material-icons">settings</span>
 
             <p class="settings-label">Account</p>
             <div class="settings-row">
@@ -110,43 +110,30 @@
 
 
     <section class="calculator-slider-section">
-        </a>
-        <button class="burger">☰</button>
-        <nav class="header-nav">
-            <a href="#" onclick="openSignupModal()">Sign Up</a>
-            <a href="#" onclick="openLoginModal()">Login</a>
-            <a href="pro.html">Go Pro</a>
-        </nav>
-        </header>
+        <div class="calculator-slider">
 
-        <section id="calculatorSection" class="calculatorSection">
-        </section>
+            <div class="slides-container">
 
-        <section class="calculator-slider-section">
-            <div class="calculator-slider">
-
-                <div class="slides-container">
-
-                    <div class="slide" id="calc-slide-1">
-                        <!-- Här lägger du in miniräknare 1 senare -->
-                    </div>
-
-                    <div class="slide" id="calc-slide-2">
-                        <!-- Här lägger du in miniräknare 2 senare -->
-                    </div>
-
+                <div class="slide" id="calc-slide-1">
+                    <section id="calculatorSection" class="calculatorSection"></section>
                 </div>
 
-                <button class="arrow left">&#10094;</button>
-                <button class="arrow right">&#10095;</button>
-
-                <div class="dots">
-                    <span class="dot active" data-index="0"></span>
-                    <span class="dot" data-index="1"></span>
+                <div class="slide" id="calc-slide-2">
+                    <!-- Här lägger du in miniräknare 2 senare -->
                 </div>
 
             </div>
-        </section>
+
+            <button class="arrow left">&#10094;</button>
+            <button class="arrow right">&#10095;</button>
+
+            <div class="dots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+            </div>
+
+        </div>
+    </section>
 
 </body>
 
