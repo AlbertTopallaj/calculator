@@ -46,7 +46,7 @@ function showToast(message) {
 burger.addEventListener('click', () => {
   nav.classList.toggle('open');
 });
-
+//använd createKey för knapparna
 function createKey(symbol, action) {
   let key = document.createElement('button');
   key.append(document.createTextNode(symbol));
@@ -54,7 +54,7 @@ function createKey(symbol, action) {
   key.classList.add('key');
   return key;
 }
-
+//Använd createDisplay till min miniräknare för samma stil
 function createDisplay() {
   let display = document.createElement('div');
   display.id = 'display';
@@ -125,7 +125,7 @@ dots.forEach(dot => {
         updateSlider();
     });
 });
-
+/*
 const display = document.getElementById("display-2");
 const buttons = document.querySelectorAll(".btn");
 
@@ -208,5 +208,73 @@ buttons.forEach((btn) => {
     currentInput = "Fel";
     updateDisplay();
   }
+} 
+}); */
+
+const display2 = document.getElementById("display-2");
+const keys2 = document.querySelectorAll("#calculator-2 .key");
+
+let input2 = "0";
+
+function updateDisplay2() {
+  display2.textContent = input2 || "0";
 }
-});
+
+function addValue2(v) {
+  if (input2 === "0" && v !== ".") {
+    input2 = v;
+  } else {
+    input2 += v;
+  }
+  updateDisplay2();
+}
+
+function clear2() {
+  input2 = "0";
+  updateDisplay2();
+}
+
+function del2() {
+  if (input2.length <= 1) input2 = "0";
+  else input2 = input2.slice(0, -1);
+  updateDisplay2();
+}
+
+function percent2() {
+  try {
+    const match = input2.match(/(\d+\.?\d*)$/);
+    if (!match) return;
+
+    const number = parseFloat(match[1]);
+    const percentValue = number / 100;
+
+    input2 = input2.replace(/(\d+\.?\d*)$/, percentValue);
+    updateDisplay2();
+  } catch {
+    input2 = "Fel";
+    updateDisplay2();
+  }
+}
+
+function equals2() {
+  try {
+    const result = Function('"use strict"; return (' + input2 + ")")();
+    input2 = String(result);
+  } catch {
+    input2 = "Fel";
+  }
+  updateDisplay2();
+}
+
+keys2.forEach(key => {
+  key.addEventListener("click", () => {
+    const value = key.getAttribute("data-value");
+    const action = key.getAttribute("data-action");
+
+    if (value) addValue2(value);
+    else if (action === "clear") clear2();
+    else if (action === "delete") del2();
+    else if (action === "equals") equals2();
+    else if (action === "percent") percent2();
+  });
+  });
