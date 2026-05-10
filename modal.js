@@ -26,6 +26,15 @@ function closeLoginModal(){
     loginOverlay.classList.remove('active');
 }
 
+function openSettingsModal(){
+    document.getElementById('settingsOverlay').classList.add('active');
+}
+
+
+function closeSettingsModal(){
+    document.getElementById('settingsOverlay').classList.remove('active');
+}
+
 loginOverlay.addEventListener('click', e => {
     if (e.target === loginOverlay) closeLoginModal();
 });

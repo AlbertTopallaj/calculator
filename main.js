@@ -242,3 +242,7 @@ dots.forEach(dot => {
         updateSlider();
     });
 });
+
+function toggleLightMode(checkbox) {
+  document.body.classList.toggle("light", checkbox.checked);
+}
