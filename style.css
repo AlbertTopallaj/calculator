@@ -389,6 +389,10 @@ body.light .calculator-display {
     color: black;
 }
 
+body.light label {
+    color: black;
+}
+
 .settings-label {
     font-size: 0.75rem;
     text-transform: uppercase;
