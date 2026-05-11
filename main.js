@@ -8,7 +8,7 @@ burger.addEventListener('click', () => {
 
 // Uppdaterar texten i displayen
 function setDisplayValue(value) {
-  document.getElementById('display') = value;
+  document.getElementById('display').textContent = value;
 }
 
 //Toast
@@ -159,36 +159,52 @@ function freeCalculatorKeypad() {
   let keypad = document.createElement('div');
   keypad.classList.add('keypad');
   keypad.appendChild(createKey('1', function () {
+    addToDisplayValue(1);
   }));
   keypad.appendChild(createKey('2', function () {
+    addToDisplayValue(2);
   }));
   keypad.appendChild(createKey('3', function () {
+    addToDisplayValue(3);
   }));
   keypad.appendChild(createKey('DEL', function () {
+    deleteFromDisplayValue();
   }));
   keypad.appendChild(createKey('4', function () {
+    addToDisplayValue(4);
   }));
   keypad.appendChild(createKey('5', function () {
+    addToDisplayValue(5);
   }));
   keypad.appendChild(createKey('6', function () {
+    addToDisplayValue(6);
   }));
   keypad.appendChild(createKey('+', function () {
+    addToDisplayValue('+');
   }));
   keypad.appendChild(createKey('7', function () {
+    addToDisplayValue(7);
   }));
   keypad.appendChild(createKey('8', function () {
+    addToDisplayValue(8);
   }));
   keypad.appendChild(createKey('9', function () {
+    addToDisplayValue(9);
   }));
   keypad.appendChild(createKey('-', function () {
+    addToDisplayValue('-');
   }));
   keypad.appendChild(createKey('AC', function () {
+    setDisplayValue(0);
   }));
   keypad.appendChild(createKey('0', function () {
+    addToDisplayValue(0);
   }));
   keypad.appendChild(createKey('C', function () {
+    setDisplayValue(0);
   }));
   keypad.appendChild(createKey('=', function () {
+    calculate();
   }));
   return keypad;
 }
