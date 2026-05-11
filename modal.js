@@ -48,7 +48,7 @@ signupOverlay.addEventListener('click', e => {
 })
 
 goproOverlay.addEventListener('click', e => {
-    if (e.target === goproOverlay) 
+    if (e.target === goproOverlay)
         closeGoProModal();
 })
 
