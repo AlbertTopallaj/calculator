@@ -3,7 +3,7 @@ const burger = document.querySelector('.burger');
 const nav = document.querySelector('.header-nav');
 
 burger.addEventListener('click', () => {
-    nav.classList.toggle('open');
+  nav.classList.toggle('open');
 });
 
 // Uppdaterar texten i displayen
@@ -13,28 +13,28 @@ function setDisplayValue(value) {
 
 //Toast
 function showToast(message) {
-    const toast = document.createElement("div")
-    toast.className = "toast"
-    toast.textContent = message;
-    document.body.appendChild(toast);
+  const toast = document.createElement("div")
+  toast.className = "toast"
+  toast.textContent = message;
+  document.body.appendChild(toast);
 
-    let offset = parseInt(getComputedStyle(toast).getPropertyValue("bottom"))
-    document.querySelectorAll(".toast").forEach(element => {
-        offset += element.offsetHeight + 10 // space between
-    })
+  let offset = parseInt(getComputedStyle(toast).getPropertyValue("bottom"))
+  document.querySelectorAll(".toast").forEach(element => {
+    offset += element.offsetHeight + 10 // space between
+  })
 
-    toast.style.bottom = `${offset}px`;
+  toast.style.bottom = `${offset}px`;
 
-    document.body.appendChild(toast);
+  document.body.appendChild(toast);
 
-    requestAnimationFrame(() => {
-        toast.style.opacity = "1";
-    });
+  requestAnimationFrame(() => {
+    toast.style.opacity = "1";
+  });
 
-    setTimeout(() => {
-        toast.style.opacity = "0";
-        setTimeout(() => toast.remove(), 500);
-    }, 3000);
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    setTimeout(() => toast.remove(), 500);
+  }, 3000);
 
 }
 
@@ -46,7 +46,7 @@ function addToDisplayValue(value) {
       display.textContent = '';
     }
   } else {
-    if (isNaN(displayValue.at(displayValue.length-1))) {
+    if (isNaN(displayValue.at(displayValue.length - 1))) {
       display.textContent = displayValue.slice(0, -1);
     }
   }
@@ -73,12 +73,12 @@ function calculate() {
 }
 
 function calculateSymbolHelper(value) {
-  for (let i = 0; i < value.length-1; i++) {
+  for (let i = 0; i < value.length - 1; i++) {
     let char = value.at(i);
     switch (char) {
       case '(':
         if (i == 0) { break; }
-        if(!isNaN(value.at(--i))) {
+        if (!isNaN(value.at(--i))) {
           value = value.slice(0, i) + '*' + value.slice(i);
           i++;
         }
@@ -96,7 +96,7 @@ function calculateSymbolHelper(value) {
       case '√':
         let nRoot = 2;
         let rootIndex = i;
-        if (i > 0 && !isNaN(value.at(i-1))) {
+        if (i > 0 && !isNaN(value.at(i - 1))) {
           nRoot = '';
           i--;
           while (i >= 0 && !isNaN(value.at(i))) {
@@ -119,9 +119,9 @@ function calculateSymbolHelper(value) {
             i++;
           }
         } else {
-          while (!isNaN(value.at(i))) {i++}
+          while (!isNaN(value.at(i))) { i++ }
         }
-        value = value.slice(0, rootIndex) + 'Math.pow(' + calculateSymbolHelper(value.slice(rootIndex+1, i)) + ', 1/' + nRoot + ')' + value.slice(i);
+        value = value.slice(0, rootIndex) + 'Math.pow(' + calculateSymbolHelper(value.slice(rootIndex + 1, i)) + ', 1/' + nRoot + ')' + value.slice(i);
         i += 13;
         break;
     }
@@ -130,67 +130,67 @@ function calculateSymbolHelper(value) {
 }
 
 function createKey(symbol, action) {
-    let key = document.createElement('button');
-    key.append(document.createTextNode(symbol));
-    key.addEventListener('click', action)
-    key.classList.add('key');
-    return key;
+  let key = document.createElement('button');
+  key.append(document.createTextNode(symbol));
+  key.addEventListener('click', action)
+  key.classList.add('key');
+  return key;
 }
 
 function createDisplay() {
-    let display = document.createElement('div');
-    display.id = 'display';
-    display.classList.add('calculator-display');
-    display.appendChild(document.createTextNode('0'));
-    return display;
+  let display = document.createElement('div');
+  display.id = 'display';
+  display.classList.add('calculator-display');
+  display.appendChild(document.createTextNode('0'));
+  return display;
 }
 
 function createCalculator(keypad) {
-    let calculator = document.createElement('div');
-    calculator.classList.add('calculator');
+  let calculator = document.createElement('div');
+  calculator.classList.add('calculator');
 
-    calculator.appendChild(createDisplay());
+  calculator.appendChild(createDisplay());
 
-    calculator.appendChild(keypad);
-    return calculator;
+  calculator.appendChild(keypad);
+  return calculator;
 }
 
 function freeCalculatorKeypad() {
-    let keypad = document.createElement('div');
-    keypad.classList.add('keypad');
-    keypad.appendChild(createKey('1', function () {
-    }));
-    keypad.appendChild(createKey('2', function () {
-    }));
-    keypad.appendChild(createKey('3', function () {
-    }));
-    keypad.appendChild(createKey('DEL', function () {
-    }));
-    keypad.appendChild(createKey('4', function () {
-    }));
-    keypad.appendChild(createKey('5', function () {
-    }));
-    keypad.appendChild(createKey('6', function () {
-    }));
-    keypad.appendChild(createKey('+', function () {
-    }));
-    keypad.appendChild(createKey('7', function () {
-    }));
-    keypad.appendChild(createKey('8', function () {
-    }));
-    keypad.appendChild(createKey('9', function () {
-    }));
-    keypad.appendChild(createKey('-', function () {
-    }));
-    keypad.appendChild(createKey('AC', function () {
-    }));
-    keypad.appendChild(createKey('0', function () {
-    }));
-    keypad.appendChild(createKey('C', function () {
-    }));
-    keypad.appendChild(createKey('=', function () {
-    }));
-    return keypad;
+  let keypad = document.createElement('div');
+  keypad.classList.add('keypad');
+  keypad.appendChild(createKey('1', function () {
+  }));
+  keypad.appendChild(createKey('2', function () {
+  }));
+  keypad.appendChild(createKey('3', function () {
+  }));
+  keypad.appendChild(createKey('DEL', function () {
+  }));
+  keypad.appendChild(createKey('4', function () {
+  }));
+  keypad.appendChild(createKey('5', function () {
+  }));
+  keypad.appendChild(createKey('6', function () {
+  }));
+  keypad.appendChild(createKey('+', function () {
+  }));
+  keypad.appendChild(createKey('7', function () {
+  }));
+  keypad.appendChild(createKey('8', function () {
+  }));
+  keypad.appendChild(createKey('9', function () {
+  }));
+  keypad.appendChild(createKey('-', function () {
+  }));
+  keypad.appendChild(createKey('AC', function () {
+  }));
+  keypad.appendChild(createKey('0', function () {
+  }));
+  keypad.appendChild(createKey('C', function () {
+  }));
+  keypad.appendChild(createKey('=', function () {
+  }));
+  return keypad;
 }
 
 document.getElementById('calculatorSection').appendChild(createCalculator(freeCalculatorKeypad()));
@@ -203,42 +203,55 @@ const leftArrow = document.querySelector('.arrow.left');
 const rightArrow = document.querySelector('.arrow.right');
 
 function updateSlider() {
-    sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+  sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[currentIndex].classList.add('active');
+  dots.forEach(dot => dot.classList.remove('active'));
+  dots[currentIndex].classList.add('active');
 
-    leftArrow.style.display = currentIndex === 0 ? 'none' : 'initial';
-    rightArrow.style.display = currentIndex === dots.length - 1 ? 'none' : '';
+  leftArrow.style.display = currentIndex === 0 ? 'none' : 'initial';
+  rightArrow.style.display = currentIndex === dots.length - 1 ? 'none' : '';
 
-    const currentVisibleSlide = slides[currentIndex]
+  const currentVisibleSlide = slides[currentIndex]
 
-    if (currentVisibleSlide.innerHTML.trim() === "") {
-        const section = document.createElement("section")
-        section.id = `dynamicCalculatorSection${currentIndex}`
-        section.className = "calculatorSection"
-        section.dataset.state = "empty"
-        currentVisibleSlide.appendChild(section)
-        getPayload(currentIndex)
-    } else if (currentVisibleSlide.firstElementChild.dataset.state === "empty") {
-        currentVisibleSlide.firstElementChild.innerHTML = ""
-        getPayload(currentIndex)
-    }
+  if (currentVisibleSlide.innerHTML.trim() === "") {
+    const section = document.createElement("section")
+    section.id = `dynamicCalculatorSection${currentIndex}`
+    section.className = "calculatorSection"
+    section.dataset.state = "empty"
+    currentVisibleSlide.appendChild(section)
+    getPayload(currentIndex)
+  } else if (currentVisibleSlide.firstElementChild.dataset.state === "empty") {
+    currentVisibleSlide.firstElementChild.innerHTML = ""
+    getPayload(currentIndex)
+  }
 }
 
 leftArrow.addEventListener('click', () => {
-    if (currentIndex > 0) currentIndex--
-    updateSlider();
+  if (currentIndex > 0) currentIndex--
+  updateSlider();
 });
 
 rightArrow.addEventListener('click', () => {
-    if (currentIndex < dots.length - 1) currentIndex++
-    updateSlider();
+  if (currentIndex < dots.length - 1) currentIndex++
+  updateSlider();
 });
 
 dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-        currentIndex = parseInt(dot.dataset.index);
-        updateSlider();
-    });
+  dot.addEventListener('click', () => {
+    currentIndex = parseInt(dot.dataset.index);
+    updateSlider();
+  });
 });
+
+function toggleLightMode(checkbox) {
+  document.body.classList.toggle("light", checkbox.checked);
+  localStorage.setItem('theme', checkbox.checked ? 'light' : 'dark');
+}
+
+window.addEventListener('DOMContentLoaded', () =>{
+    const saved = localStorage.getItem('theme');
+    if(saved === 'light') {
+      document.body.classList.add('light');
+      document.getElementById('darkmode-toggle').checked = true;
+    }
+  });

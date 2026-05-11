@@ -1,38 +1,44 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  background: #111;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 0;
+    background: #111;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* Yttre ram omkring miniräknaren */
 .calculator {
-  min-width: 70cqmin;
-  padding: 16px;
-  border-radius: 12px;
-  background: #2f2f2f;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    min-width: 70cqmin;
+    padding: 16px;
+    border-radius: 12px;
+    background: #2f2f2f;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
 }
 
 /* Själva display-rutan */
 .calculator-display {
-  height: 15cqmin;              /* Större display */
-  padding: 3cqmin 3cqmin;
-  border-radius: 8px;
-  background: #3a3a3a;       /* Ljusare grå bakgrund */
-  color: #e6e6e6;
-  font-size: 5cqmin;         /* Mindre text */
-  text-align: right;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  overflow: hidden;
-  white-space: nowrap;
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.4); /* Subtil skärmeffekt */
+    height: 15cqmin;
+    /* Större display */
+    padding: 3cqmin 3cqmin;
+    border-radius: 8px;
+    background: #3a3a3a;
+    /* Ljusare grå bakgrund */
+    color: #e6e6e6;
+    font-size: 5cqmin;
+    /* Mindre text */
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+    white-space: nowrap;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
+    /* Subtil skärmeffekt */
 }
 
 .burger {
@@ -125,7 +131,7 @@ a {
     margin-top: 2vh;
     padding-top: 2vh;
     display: grid;
-    grid-template-columns: minmax(0,18cqmin) minmax(0,18cqmin) minmax(0,18cqmin) minmax(0,18cqmin);
+    grid-template-columns: minmax(0, 18cqmin) minmax(0, 18cqmin) minmax(0, 18cqmin) minmax(0, 18cqmin);
     grid-gap: 1vh;
     border-top-color: gray;
     border-top-style: solid;
@@ -296,4 +302,119 @@ a {
     padding: 12px 18px;
     border-radius: 12px;
     transition: opacity 0.5s;
+}
+
+.toggle {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-thumb {
+    position: absolute;
+    inset: 0;
+    background: #555;
+    border-radius: 999px;
+    transition: .2s;
+}
+
+.toggle-thumb::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    left: 3px;
+    top: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .2s;
+}
+
+.toggle input:checked+.toggle-thumb {
+    background: #3b82f6;
+}
+
+.toggle input:checked+.toggle-thumb::after {
+    transform: translateX(24px);
+}
+
+body.light {
+    background: white;
+    color: black;
+}
+
+body.light .modal {
+    background: white;
+    color: black;
+}
+body.light .header {
+    background-color: lightgrey;
+}
+
+body.light .header a,
+body.light .title {
+    color: black;
+}
+
+body.light input {
+    background-color: white;
+    color: black;
+}
+
+body.light .btn-login {
+    background-color: lightgrey;
+
+}
+
+body.light .btn-signup {
+    background-color: lightgrey;
+}
+
+body.light .burger {
+    color: black
+}
+
+body.light .calculator {
+    background-color: white;
+}
+
+body.light .calculator-display {
+    background-color: white;
+    color: black;
+}
+
+body.light label {
+    color: black;
+}
+
+body.light #welcome {
+    color: black;
+}
+
+.settings-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #64748b;
+    margin: 1.25rem 0 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #1e293b;
+}
+
+.settings-value {
+    color: #64748b;
+    font-size: 0.85rem;
 }
