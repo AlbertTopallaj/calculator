@@ -235,10 +235,10 @@ function updateSlider() {
     section.className = "calculatorSection"
     section.dataset.state = "empty"
     currentVisibleSlide.appendChild(section)
-    getPayload(currentIndex)
+    getPayload(currentIndex, "advcalc")
   } else if (currentVisibleSlide.firstElementChild.dataset.state === "empty") {
     currentVisibleSlide.firstElementChild.innerHTML = ""
-    getPayload(currentIndex)
+    getPayload(currentIndex, "advcalc")
   }
 }
 

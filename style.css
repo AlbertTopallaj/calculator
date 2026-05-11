@@ -418,3 +418,12 @@ body.light #welcome {
     color: #64748b;
     font-size: 0.85rem;
 }
+
+#calculator-2 .key {
+    background: white;
+    color: black;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
