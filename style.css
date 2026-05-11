@@ -398,6 +398,11 @@ body.light #welcome {
     color: black;
 }
 
+body.light .modal-overlay button:hover {
+    background-color: grey;
+    transition: background-color 1s;
+}
+
 .settings-label {
     font-size: 0.75rem;
     text-transform: uppercase;
