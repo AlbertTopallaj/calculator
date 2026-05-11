@@ -1,4 +1,4 @@
-import {checkUserSession, logout, signIn, signUp, confirmPayment, fetchPayload} from "./db-script.js"
+import { checkUserSession, logout, signIn, signUp, confirmPayment, fetchPayload } from "./db-script.js"
 
 let appState = {
     user: null,
@@ -97,10 +97,10 @@ async function handlePayment() {
 
 function renderView() {
     const nav = document.querySelector('.header-nav');
-    
+
     const emailSettings = document.getElementById('emailSettings');
     const currentPlan = document.getElementById('currentPlan');
-    
+
 
     if (!appState.user) {
         const signup = document.createElement('a');
@@ -142,11 +142,18 @@ function renderView() {
             pro.onclick = openGoProModal
             nav.appendChild(pro)
         } else {
+
             const timeLeft = document.createElement('a')
             timeLeft.textContent = `Your subscription has ${appState.subscription.daysRemaining} days remaining`
             nav.appendChild(timeLeft)
         }
+        const settingsGoPro = document.getElementById('settingsGoPro');
+        if (settingsGoPro) {
+            if (appState.subscription.isPremium) {
+                settingsGoPro.remove();
+            }
 
+        }
     }
 }
 
