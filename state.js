@@ -164,9 +164,9 @@ async function sessionCheck() {
     renderView()
 }
 
-async function getPayload(index) {
+async function getPayload(index, payload) {
     if (appState.subscription.isPremium) {
-        await fetchPayload("orangeMan", index)
+        await fetchPayload(payload, index) // orangeMan, advcalc
         document.getElementById(`dynamicCalculatorSection${index}`).dataset.state = "loaded"
     } else {
         const section = document.getElementById(`dynamicCalculatorSection${index}`)
