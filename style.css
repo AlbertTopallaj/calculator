@@ -13,7 +13,6 @@ body {
 
 /* Yttre ram omkring miniräknaren */
 .calculator {
-    min-width: 70cqmin;
     padding: 16px;
     border-radius: 12px;
     background: #2f2f2f;
@@ -131,7 +130,6 @@ a {
     margin-top: 2vh;
     padding-top: 2vh;
     display: grid;
-    grid-template-columns: minmax(0, 18cqmin) minmax(0, 18cqmin) minmax(0, 18cqmin) minmax(0, 18cqmin);
     grid-gap: 1vh;
     border-top-color: gray;
     border-top-style: solid;

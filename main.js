@@ -145,9 +145,11 @@ function createDisplay() {
   return display;
 }
 
-function createCalculator(keypad) {
+function createCalculator(keypad, columns, rows) {
   let calculator = document.createElement('div');
   calculator.classList.add('calculator');
+  
+  keypad.style.gridTemplateColumns = 'repeat('+columns+', minmax(0, '+ 70/rows +'vh))';
 
   calculator.appendChild(createDisplay());
 
@@ -209,7 +211,7 @@ function freeCalculatorKeypad() {
   return keypad;
 }
 
-document.getElementById('calculatorSection').appendChild(createCalculator(freeCalculatorKeypad()));
+document.getElementById('calculatorSection').appendChild(createCalculator(freeCalculatorKeypad(), 4, 4));
 
 const sliderContainer = document.querySelector('.slides-container');
 const dots = document.querySelectorAll('.dot');
