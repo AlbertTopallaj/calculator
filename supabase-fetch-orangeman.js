@@ -63,6 +63,19 @@ Deno.serve(async (req) => {
 
         const index = body.index;
 
+        if (!Number.isInteger(index) || index < 0 || index > 1000) {
+    return new Response(
+        JSON.stringify({ error: "Invalid index" }),
+        {
+            status: 400,
+            headers: {
+                ...corsHeaders,
+                "Content-Type": "application/json",
+            },
+        }
+    );
+}
+
         const orangeManPayload = `
 const canvas = document.createElement('canvas')
 const ctx = canvas.getContext("2d");
