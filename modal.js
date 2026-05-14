@@ -82,3 +82,17 @@ document.querySelector('#logoutOverlay .btn-yes').addEventListener('click', asyn
 document.querySelector('#logoutOverlay .btn-no').addEventListener('click', () => {
     closeLogoutModal();
 })
+
+document.getElementById('settings-search').addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+    const sections = document.querySelectorAll('.settings-section');
+
+    sections.forEach(section => {
+        if (query === '') {
+            section.style.display = '';
+            return;
+        }
+        const text = section.textContent.toLowerCase();
+        section.style.display = text.includes(query) ? '' : 'none';
+    });
+});
