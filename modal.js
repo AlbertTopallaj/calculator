@@ -3,8 +3,6 @@ const signupOverlay = document.getElementById('signupOverlay');
 const goproOverlay = document.getElementById('goproOverlay');
 const settingsOverlay = document.getElementById('settingsOverlay');
 
-
-
 function openGoProModal() {
     goproOverlay.classList.add('active');
 }

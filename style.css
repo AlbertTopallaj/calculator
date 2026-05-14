@@ -109,7 +109,7 @@ a {
     transition: transform 0.5s;
 }
 
-.header-nav a:hover {
+.header-nav a.hoverable:hover {
     color: lightgrey;
     transform: scale(1.2);
 }
