@@ -215,7 +215,6 @@ window.handleSignup = handleSignup
 window.handleLogout = handleLogout
 window.handlePayment = handlePayment
 window.getPayload = getPayload
-window.appState = appState
 
 sessionCheck()
 
