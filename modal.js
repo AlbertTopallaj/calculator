@@ -84,11 +84,15 @@ document.querySelector('#logoutOverlay .btn-no').addEventListener('click', () =>
 })
 
 document.getElementById('settings-search').addEventListener('input', function() {
-    const query = this.value.toLowerCase();
-    const rows = document.querySelectorAll('.settings-row, .settings-label, #settingsGoPro');
+    const query = this.value.toLowerCase().trim();
+    const sections = document.querySelectorAll('.settings-section');
 
-    rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(query) ? '' : 'none';
+    sections.forEach(section => {
+        if (query === '') {
+            section.style.display = '';
+            return;
+        }
+        const text = section.textContent.toLowerCase();
+        section.style.display = text.includes(query) ? '' : 'none';
     });
 });

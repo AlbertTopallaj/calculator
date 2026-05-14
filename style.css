@@ -493,3 +493,8 @@ body.light .modal-overlay button:hover {
     color: #64748b;
     font-size: 1.2rem;
 }
+
+.settings-modal {
+    max-height: 80vh;
+    overflow-y: auto;
+}
