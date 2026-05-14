@@ -474,3 +474,8 @@ body.light .modal-overlay button:hover {
     gap: 1rem;
     margin-top: 1.5rem;
 }
+
+#settings-search {
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
