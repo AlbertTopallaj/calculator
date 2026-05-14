@@ -132,6 +132,9 @@ function renderView() {
         logout.href = '#';
         logout.onclick = handleLogout;
 
+        settings.classList.add('hoverable');
+        logout.classList.add('hoverable');
+
         nav.replaceChildren(welcome, logout, settings);
 
         emailSettings.textContent = appState.user;
