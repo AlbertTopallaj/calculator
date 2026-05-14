@@ -130,7 +130,7 @@ function renderView() {
         const logout = document.createElement('a');
         logout.textContent = 'Log out';
         logout.href = '#';
-        logout.onclick = handleLogout;
+        logout.onclick = openLogoutModal;
 
         settings.classList.add('hoverable');
         logout.classList.add('hoverable');

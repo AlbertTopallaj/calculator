@@ -2,6 +2,15 @@ const loginOverlay = document.getElementById('loginOverlay');
 const signupOverlay = document.getElementById('signupOverlay');
 const goproOverlay = document.getElementById('goproOverlay');
 const settingsOverlay = document.getElementById('settingsOverlay');
+const logoutOverlay = document.getElementById('logoutOverlay');
+
+function openLogoutModal(){
+    logoutOverlay.classList.add('active');
+}
+
+function closeLogoutModal(){
+    logoutOverlay.classList.remove('active');
+}
 
 function openGoProModal() {
     goproOverlay.classList.add('active');
@@ -61,5 +70,15 @@ document.addEventListener('keydown', e => {
         closeSignupModal();
         closeGoProModal();
         closeSettingsModal();
+        closeLogoutModal();
     }
 });
+
+document.querySelector('#logoutOverlay .btn-yes').addEventListener('click', async () =>{
+    await handleLogout();
+    closeLogoutModal();
+});
+
+document.querySelector('#logoutOverlay .btn-no').addEventListener('click', () => {
+    closeLogoutModal();
+})

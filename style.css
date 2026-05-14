@@ -432,3 +432,45 @@ body.light .modal-overlay button:hover {
     align-items: center;
     justify-content: center;
 }
+
+.btn-yes {
+    background-color: #dc2626;
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.6rem;
+    width: 45%;
+    border: none;
+    cursor: pointer;
+    transition: scale 0.3s;
+}
+
+.btn-no {
+    background-color: #38bdf8;
+    color: #0f172a;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.6rem;
+    width: 45%;
+    border: none;
+    cursor: pointer;
+    transition: scale 0.3s;
+}
+
+.btn-yes:hover {
+    background-color: #b91c1c;
+    scale: 1.05;
+}
+
+.btn-no:hover {
+    background-color: #7dd3fc;
+    scale: 1.05;
+}
+
+.logout-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
