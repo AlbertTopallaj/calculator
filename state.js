@@ -121,7 +121,7 @@ function renderView() {
     } else {
         const name = appState.user.split('@')[0];
         const welcome = document.createElement('a');
-        welcome.textContent = `${getGreeting()}, ${name}`;
+        welcome.textContent = `${getGreeting()} ${name}`;
 
         const settings = document.createElement('a');
         settings.textContent = 'Settings'
@@ -169,7 +169,7 @@ function getGreeting(){
         return 'Good day'
     if (hour >= 18 && hour < 23) 
         return 'Good evening'
-    return 'So you are the nightowl, Mr'
+    return 'Hello Nightowl'
 }
 
 
