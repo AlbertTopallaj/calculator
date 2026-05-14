@@ -119,8 +119,9 @@ function renderView() {
         currentPlan.textContent = 'Free';
 
     } else {
+        const name = appState.user.split('@')[0];
         const welcome = document.createElement('a');
-        welcome.textContent = `Välkommen, ${appState.user}`;
+        welcome.textContent = `${getGreeting()} ${name}`;
 
         const settings = document.createElement('a');
         settings.textContent = 'Settings'
@@ -158,6 +159,17 @@ function renderView() {
 
         }
     }
+}
+
+function getGreeting(){
+    const hour = new Date().getHours();
+    if(hour >= 5 && hour < 10)
+        return 'Good morning'
+    if(hour >= 10 && hour < 18)
+        return 'Good day'
+    if (hour >= 18 && hour < 23) 
+        return 'Good evening'
+    return 'Hello Nightowl'
 }
 
 
