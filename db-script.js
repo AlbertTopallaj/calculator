@@ -165,8 +165,15 @@ async function subscriptionCheck() {
     }
 }
 
-export async function fetchPayload(name, index) {
-    const {data, error} = await supabase.functions.invoke(`fetch-${name}`, {
+const payloadNames = ["advcalc", "orangeMan"]
+
+export async function fetchPayload(index) {
+    if (payloadNames.length === 0) return {
+        empty: true,
+        err: false
+    }
+    const payload = payloadNames.shift()
+    const {data, error} = await supabase.functions.invoke(`fetch-${payload}`, {
             body: {
                 index: index,
             }
@@ -174,14 +181,22 @@ export async function fetchPayload(name, index) {
 
     if (error) {
         showToast("Fetch failed, user not authenticated")
-        return
+        return {
+            empty: false,
+            err: true
+        }
     }
 
     if (data.message) {
         const script = document.createElement("script")
         script.textContent = data.message
         document.body.appendChild(script)
-        showToast(`${name} fetched successfully`)
+        showToast(`${payload} fetched successfully`)
+    }
+
+    return {
+        empty: false,
+        err: false
     }
 
 }

@@ -3,271 +3,279 @@ const burger = document.querySelector('.burger');
 const nav = document.querySelector('.header-nav');
 
 burger.addEventListener('click', () => {
-  nav.classList.toggle('open');
+    nav.classList.toggle('open');
 });
 
 // Uppdaterar texten i displayen
 function setDisplayValue(value) {
-  document.getElementById('display').textContent = value;
+    document.getElementById('display').textContent = value;
 }
 
 //Toast
 function showToast(message) {
-  const toast = document.createElement("div")
-  toast.className = "toast"
-  toast.textContent = message;
-  document.body.appendChild(toast);
+    const toast = document.createElement("div")
+    toast.className = "toast"
+    toast.textContent = message;
+    document.body.appendChild(toast);
 
-  let offset = parseInt(getComputedStyle(toast).getPropertyValue("bottom"))
-  document.querySelectorAll(".toast").forEach(element => {
-    offset += element.offsetHeight + 10 // space between
-  })
+    let offset = parseInt(getComputedStyle(toast).getPropertyValue("bottom"))
+    document.querySelectorAll(".toast").forEach(element => {
+        offset += element.offsetHeight + 10 // space between
+    })
 
-  toast.style.bottom = `${offset}px`;
+    toast.style.bottom = `${offset}px`;
 
-  document.body.appendChild(toast);
+    document.body.appendChild(toast);
 
-  requestAnimationFrame(() => {
-    toast.style.opacity = "1";
-  });
+    requestAnimationFrame(() => {
+        toast.style.opacity = "1";
+    });
 
-  setTimeout(() => {
-    toast.style.opacity = "0";
-    setTimeout(() => toast.remove(), 500);
-  }, 3000);
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
 
 }
 
 function addToDisplayValue(value) {
-  let display = document.getElementById('display');
-  let displayValue = display.textContent;
-  if (!isNaN(value)) {
-    if (displayValue == 0) {
-      display.textContent = '';
+    let display = document.getElementById('display');
+    let displayValue = display.textContent;
+    if (!isNaN(value)) {
+        if (displayValue == 0) {
+            display.textContent = '';
+        }
+    } else {
+        if (isNaN(displayValue.at(displayValue.length - 1))) {
+            display.textContent = displayValue.slice(0, -1);
+        }
     }
-  } else {
-    if (isNaN(displayValue.at(displayValue.length - 1))) {
-      display.textContent = displayValue.slice(0, -1);
-    }
-  }
-  display.textContent += value;
+    display.textContent += value;
 }
 
 function deleteFromDisplayValue() {
-  let display = document.getElementById('display');
-  let value = display.textContent;
-  if (value.length < 2) {
-    display.textContent = 0;
-    return;
-  }
-  display.textContent = value.slice(0, -1);
+    let display = document.getElementById('display');
+    let value = display.textContent;
+    if (value.length < 2) {
+        display.textContent = 0;
+        return;
+    }
+    display.textContent = value.slice(0, -1);
 }
 
 function calculate() {
-  let display = document.getElementById('display');
-  let value = display.textContent;
+    let display = document.getElementById('display');
+    let value = display.textContent;
 
-  value = calculateSymbolHelper(value);
+    value = calculateSymbolHelper(value);
 
-  display.textContent = eval(value);
+    display.textContent = eval(value);
 }
 
 function calculateSymbolHelper(value) {
-  for (let i = 0; i < value.length - 1; i++) {
-    let char = value.at(i);
-    switch (char) {
-      case '(':
-        if (i == 0) { break; }
-        if (!isNaN(value.at(--i))) {
-          value = value.slice(0, i) + '*' + value.slice(i);
-          i++;
-        }
-        break;
-      case ')':
-        if (!isNaN(value.at(++i))) {
-          value = value.slice(0, i) + '*' + value.slice(i);
-          i++;
-        }
-        break;
-      case '^':
-        value = value.slice(0, i) + '**' + value.slice(++i);
-        i++;
-        break;
-      case '√':
-        let nRoot = 2;
-        let rootIndex = i;
-        if (i > 0 && !isNaN(value.at(i - 1))) {
-          nRoot = '';
-          i--;
-          while (i >= 0 && !isNaN(value.at(i))) {
-            nRoot = value.at(i--) + nRoot;
-          }
-          value = value.slice(0, ++i) + value.slice(rootIndex);
-        }
-        rootIndex = i++;
-        if (value.at(i++) == '(') {
-          let parAmount = 1;
-          while (parAmount > 0 && value.length > i) {
-            switch (value.at(i)) {
-              case '(':
-                parAmount++;
+    for (let i = 0; i < value.length - 1; i++) {
+        let char = value.at(i);
+        switch (char) {
+            case '(':
+                if (i == 0) {
+                    break;
+                }
+                if (!isNaN(value.at(--i))) {
+                    value = value.slice(0, i) + '*' + value.slice(i);
+                    i++;
+                }
                 break;
-              case ')':
-                parAmount--;
+            case ')':
+                if (!isNaN(value.at(++i))) {
+                    value = value.slice(0, i) + '*' + value.slice(i);
+                    i++;
+                }
                 break;
-            }
-            i++;
-          }
-        } else {
-          while (!isNaN(value.at(i))) { i++ }
+            case '^':
+                value = value.slice(0, i) + '**' + value.slice(++i);
+                i++;
+                break;
+            case '√':
+                let nRoot = 2;
+                let rootIndex = i;
+                if (i > 0 && !isNaN(value.at(i - 1))) {
+                    nRoot = '';
+                    i--;
+                    while (i >= 0 && !isNaN(value.at(i))) {
+                        nRoot = value.at(i--) + nRoot;
+                    }
+                    value = value.slice(0, ++i) + value.slice(rootIndex);
+                }
+                rootIndex = i++;
+                if (value.at(i++) == '(') {
+                    let parAmount = 1;
+                    while (parAmount > 0 && value.length > i) {
+                        switch (value.at(i)) {
+                            case '(':
+                                parAmount++;
+                                break;
+                            case ')':
+                                parAmount--;
+                                break;
+                        }
+                        i++;
+                    }
+                } else {
+                    while (!isNaN(value.at(i))) {
+                        i++
+                    }
+                }
+                value = value.slice(0, rootIndex) + 'Math.pow(' + calculateSymbolHelper(value.slice(rootIndex + 1, i)) + ', 1/' + nRoot + ')' + value.slice(i);
+                i += 13;
+                break;
         }
-        value = value.slice(0, rootIndex) + 'Math.pow(' + calculateSymbolHelper(value.slice(rootIndex + 1, i)) + ', 1/' + nRoot + ')' + value.slice(i);
-        i += 13;
-        break;
     }
-  }
-  return value;
+    return value;
 }
 
 function createKey(symbol, action) {
-  let key = document.createElement('button');
-  key.append(document.createTextNode(symbol));
-  key.addEventListener('click', action)
-  key.classList.add('key');
-  return key;
+    let key = document.createElement('button');
+    key.append(document.createTextNode(symbol));
+    key.addEventListener('click', action)
+    key.classList.add('key');
+    return key;
 }
 
 function createDisplay() {
-  let display = document.createElement('div');
-  display.id = 'display';
-  display.classList.add('calculator-display');
-  display.appendChild(document.createTextNode('0'));
-  return display;
+    let display = document.createElement('div');
+    display.id = 'display';
+    display.classList.add('calculator-display');
+    display.appendChild(document.createTextNode('0'));
+    return display;
 }
 
 function createCalculator(keypad) {
-  let calculator = document.createElement('div');
-  calculator.classList.add('calculator');
+    let calculator = document.createElement('div');
+    calculator.classList.add('calculator');
 
-  calculator.appendChild(createDisplay());
+    calculator.appendChild(createDisplay());
 
-  calculator.appendChild(keypad);
-  return calculator;
+    calculator.appendChild(keypad);
+    return calculator;
 }
 
 function freeCalculatorKeypad() {
-  let keypad = document.createElement('div');
-  keypad.classList.add('keypad');
-  keypad.appendChild(createKey('1', function () {
-    addToDisplayValue(1);
-  }));
-  keypad.appendChild(createKey('2', function () {
-    addToDisplayValue(2);
-  }));
-  keypad.appendChild(createKey('3', function () {
-    addToDisplayValue(3);
-  }));
-  keypad.appendChild(createKey('DEL', function () {
-    deleteFromDisplayValue();
-  }));
-  keypad.appendChild(createKey('4', function () {
-    addToDisplayValue(4);
-  }));
-  keypad.appendChild(createKey('5', function () {
-    addToDisplayValue(5);
-  }));
-  keypad.appendChild(createKey('6', function () {
-    addToDisplayValue(6);
-  }));
-  keypad.appendChild(createKey('+', function () {
-    addToDisplayValue('+');
-  }));
-  keypad.appendChild(createKey('7', function () {
-    addToDisplayValue(7);
-  }));
-  keypad.appendChild(createKey('8', function () {
-    addToDisplayValue(8);
-  }));
-  keypad.appendChild(createKey('9', function () {
-    addToDisplayValue(9);
-  }));
-  keypad.appendChild(createKey('-', function () {
-    addToDisplayValue('-');
-  }));
-  keypad.appendChild(createKey('AC', function () {
-    setDisplayValue(0);
-  }));
-  keypad.appendChild(createKey('0', function () {
-    addToDisplayValue(0);
-  }));
-  keypad.appendChild(createKey('C', function () {
-    setDisplayValue(0);
-  }));
-  keypad.appendChild(createKey('=', function () {
-    calculate();
-  }));
-  return keypad;
+    let keypad = document.createElement('div');
+    keypad.classList.add('keypad');
+    keypad.appendChild(createKey('1', function () {
+        addToDisplayValue(1);
+    }));
+    keypad.appendChild(createKey('2', function () {
+        addToDisplayValue(2);
+    }));
+    keypad.appendChild(createKey('3', function () {
+        addToDisplayValue(3);
+    }));
+    keypad.appendChild(createKey('DEL', function () {
+        deleteFromDisplayValue();
+    }));
+    keypad.appendChild(createKey('4', function () {
+        addToDisplayValue(4);
+    }));
+    keypad.appendChild(createKey('5', function () {
+        addToDisplayValue(5);
+    }));
+    keypad.appendChild(createKey('6', function () {
+        addToDisplayValue(6);
+    }));
+    keypad.appendChild(createKey('+', function () {
+        addToDisplayValue('+');
+    }));
+    keypad.appendChild(createKey('7', function () {
+        addToDisplayValue(7);
+    }));
+    keypad.appendChild(createKey('8', function () {
+        addToDisplayValue(8);
+    }));
+    keypad.appendChild(createKey('9', function () {
+        addToDisplayValue(9);
+    }));
+    keypad.appendChild(createKey('-', function () {
+        addToDisplayValue('-');
+    }));
+    keypad.appendChild(createKey('AC', function () {
+        setDisplayValue(0);
+    }));
+    keypad.appendChild(createKey('0', function () {
+        addToDisplayValue(0);
+    }));
+    keypad.appendChild(createKey('C', function () {
+        setDisplayValue(0);
+    }));
+    keypad.appendChild(createKey('=', function () {
+        calculate();
+    }));
+    return keypad;
 }
 
 document.getElementById('calculatorSection').appendChild(createCalculator(freeCalculatorKeypad()));
 
 const sliderContainer = document.querySelector('.slides-container');
-const dots = document.querySelectorAll('.dot');
-const slides = document.querySelectorAll(".slide")
+let slides = document.querySelectorAll(".slide");
 let currentIndex = 0;
 const leftArrow = document.querySelector('.arrow.left');
 const rightArrow = document.querySelector('.arrow.right');
 
-function updateSlider() {
-  sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+async function updateSlider() {
+    sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-  dots.forEach(dot => dot.classList.remove('active'));
-  dots[currentIndex].classList.add('active');
+    const currentVisibleSlide = slides[currentIndex];
 
-  leftArrow.style.display = currentIndex === 0 ? 'none' : 'initial';
-  rightArrow.style.display = currentIndex === dots.length - 1 ? 'none' : '';
+    let currentSection = currentVisibleSlide.firstElementChild;
 
-  const currentVisibleSlide = slides[currentIndex]
+    if (currentVisibleSlide.innerHTML.trim() === "") {
+        currentSection = document.createElement("section");
+        currentSection.id = `dynamicCalculatorSection${currentIndex}`;
+        currentSection.className = "calculatorSection";
+        currentSection.dataset.state = "empty";
 
-  if (currentVisibleSlide.innerHTML.trim() === "") {
-    const section = document.createElement("section")
-    section.id = `dynamicCalculatorSection${currentIndex}`
-    section.className = "calculatorSection"
-    section.dataset.state = "empty"
-    currentVisibleSlide.appendChild(section)
-    getPayload(currentIndex, "advcalc")
-  } else if (currentVisibleSlide.firstElementChild.dataset.state === "empty") {
-    currentVisibleSlide.firstElementChild.innerHTML = ""
-    getPayload(currentIndex, "advcalc")
-  }
+        currentVisibleSlide.appendChild(currentSection);
+
+        await getPayload(currentIndex);
+    } else if (currentSection.dataset.state === "empty") {
+        currentSection.innerHTML = "";
+        await getPayload(currentIndex);
+    }
+
+    if (currentIndex === slides.length - 1 &&
+        currentVisibleSlide.firstElementChild.dataset.state === "loaded") {
+
+        const newSlide = document.createElement("div");
+        newSlide.className = "slide";
+
+        currentVisibleSlide.parentElement.appendChild(newSlide);
+
+        slides = document.querySelectorAll(".slide");
+    }
+
+    leftArrow.style.display = currentIndex === 0 ? 'none' : 'initial';
+    rightArrow.style.display = currentIndex === slides.length - 1 ? 'none' : '';
 }
 
 leftArrow.addEventListener('click', () => {
-  if (currentIndex > 0) currentIndex--
-  updateSlider();
+    if (currentIndex > 0) currentIndex--
+    updateSlider();
 });
 
 rightArrow.addEventListener('click', () => {
-  if (currentIndex < dots.length - 1) currentIndex++
-  updateSlider();
-});
-
-dots.forEach(dot => {
-  dot.addEventListener('click', () => {
-    currentIndex = parseInt(dot.dataset.index);
+    if (currentIndex < slides.length - 1) currentIndex++
     updateSlider();
-  });
 });
 
 function toggleLightMode(checkbox) {
-  document.body.classList.toggle("light", checkbox.checked);
-  localStorage.setItem('theme', checkbox.checked ? 'light' : 'dark');
+    document.body.classList.toggle("light", checkbox.checked);
+    localStorage.setItem('theme', checkbox.checked ? 'light' : 'dark');
 }
 
-window.addEventListener('DOMContentLoaded', () =>{
+window.addEventListener('DOMContentLoaded', () => {
     const saved = localStorage.getItem('theme');
-    if(saved === 'light') {
-      document.body.classList.add('light');
-      document.getElementById('darkmode-toggle').checked = true;
+    if (saved === 'light') {
+        document.body.classList.add('light');
+        document.getElementById('darkmode-toggle').checked = true;
     }
-  });
+});

@@ -174,10 +174,30 @@ async function sessionCheck() {
     renderView()
 }
 
-async function getPayload(index, payload) {
+async function getPayload(index) {
     if (appState.subscription.isPremium) {
-        await fetchPayload(payload, index) // orangeMan, advcalc
-        document.getElementById(`dynamicCalculatorSection${index}`).dataset.state = "loaded"
+        const result = await fetchPayload(index)
+        if (!result.empty && !result.err) {
+            document.getElementById(`dynamicCalculatorSection${index}`).dataset.state = "loaded"
+        } else if (result.empty) {
+            const section = document.getElementById(`dynamicCalculatorSection${index}`)
+            const msg = document.createElement("h1")
+            msg.textContent = "All content has been fetched"
+            msg.style.whiteSpace = "pre-line";
+            msg.style.lineHeight = "4.0";
+            msg.style.textAlign = "center";
+            msg.style.color = "azure"
+            section.appendChild(msg)
+        } else {
+            const section = document.getElementById(`dynamicCalculatorSection${index}`)
+            const msg = document.createElement("h1")
+            msg.textContent = "Error fetching, try reloading"
+            msg.style.whiteSpace = "pre-line";
+            msg.style.lineHeight = "4.0";
+            msg.style.textAlign = "center";
+            msg.style.color = "azure"
+            section.appendChild(msg)
+        }
     } else {
         const section = document.getElementById(`dynamicCalculatorSection${index}`)
         const paywall = document.createElement("h1")
